@@ -1,3 +1,9 @@
+/**
+ *
+ * Problem: Given a singly linked list, determine if it is a palindrome.
+ * **/
+
+import java.util.Stack;
 
 public class Palindrome {
 
@@ -13,8 +19,35 @@ public class Palindrome {
 
     public boolean isPalindrome(Node head) {
 
+        if(head == null) {
+            return false;
+        }
 
-        return false;
+        Node slow_ptr = head;
+        Node fast_ptr = head;
+        Stack<Integer> stack = new Stack<>();
+
+        //slow_ptr moves by 1 position & fast_ptr moves by 2 positions
+        while(fast_ptr != null && fast_ptr.next != null) {
+            stack.push(slow_ptr.data);
+            slow_ptr = slow_ptr.next;
+            fast_ptr = fast_ptr.next.next;
+        }
+
+        //skip the middle element if odd length
+        if(fast_ptr.next == null){
+            slow_ptr = slow_ptr.next;
+        }
+
+        //comparing the data of next half of the list with popping the stack from the first half
+        while (slow_ptr != null) {
+            if(stack.peek() != slow_ptr.data) {
+                return false;
+            }
+            slow_ptr = slow_ptr.next;
+            stack.pop();
+        }
+        return true;
     }
 
     public static void main(String[] args) {
