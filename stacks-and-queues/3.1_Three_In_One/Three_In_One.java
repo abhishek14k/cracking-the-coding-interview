@@ -16,6 +16,13 @@ public class Three_In_One {
             values = new int [stackSize * numStack];
             sizes = new int[numStack];
         }
+		
+		//Method to return top element of that stack
+        private int indexOfTop(int stackNum) {
+            int offset = stackNum * stackSize;
+            int size = sizes[stackNum];
+            return offset - size -1;
+        }
     }
 
     public static class EmptyStackException extends RuntimeException {
